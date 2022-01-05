@@ -18,6 +18,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Adding scripts -->
+    @stack('scripts')
 </head>
 <body>
     <div id="app">

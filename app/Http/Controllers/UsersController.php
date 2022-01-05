@@ -64,7 +64,9 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return json_encode($user);
     }
 
     /**
@@ -107,6 +109,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect('/users')
+            ->with('success', 'User has been deleted successfully');
     }
 }
