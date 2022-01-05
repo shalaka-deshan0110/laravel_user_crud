@@ -25,11 +25,11 @@ class PostsController extends Controller
 
         $response = Http::get('https://jsonplaceholder.typicode.com/posts/'.$id);
 
-        return json_decode($response->body());
+        // return json_decode($response->body());
 
-        // return view('posts.show',[
-        //     "post" => json_decode($response->body())
-        // ]);
+        return view('posts.show',[
+            "post" => json_decode($response->body())
+        ]);
     }
 
 }

@@ -31,10 +31,12 @@
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->body }}</td>
                                 <td>
-                                    <a class="btn btn-warning" data-toggle="modal" id="mediumButton"
+                                    <a class="btn btn-warning" href="{{ route('posts.show', $post->id) }}"
+                                            title="show">Show</a>
+                                    {{-- <a class="btn btn-warning" data-toggle="modal" id="mediumButton"
                                             data-target="#mediumModal"
                                             data-attr="{{ route('posts.show', $post->id) }}"
-                                            title="show">Show</a>
+                                            title="show">Show</a> --}}
                                 </td>
                             </tr>
                         @endforeach
@@ -47,7 +49,7 @@
     </div>
 
     <!-- medium modal -->
-    <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+    {{-- <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
         aria-hidden="true" class="opacity-20 bg-success modal-overlay" >
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content" style="
@@ -64,58 +66,58 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     @push('scripts')
     <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.js"></script>
         <script  type="text/javascript">
             // display a modal (medium modal)
-            $(document).on('click', '#mediumButton', function(event) {
+            // $(document).on('click', '#mediumButton', function(event) {
 
-                event.preventDefault();
-                let href = $(this).attr('data-attr');
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    url: href,
-                    type: 'GET',
-                    headers: {
-                    'Access-Control-Allow-Origin': 'http://localhost'
-                    },
-                    "_token": "{{ csrf_token() }}",
-                    beforeSend: function() {
-                        $('#loader').show();
-                    },
-                    dataType: "json",
-                    cache: false,
-                    crossDomain: false,
-                    // return the result
-                    success: function(result) {
+            //     event.preventDefault();
+            //     let href = $(this).attr('data-attr');
+            //     $.ajaxSetup({
+            //         headers: {
+            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //         }
+            //     });
+            //     $.ajax({
+            //         url: href,
+            //         type: 'GET',
+            //         headers: {
+            //         'Access-Control-Allow-Origin': 'http://localhost'
+            //         },
+            //         "_token": "{{ csrf_token() }}",
+            //         beforeSend: function() {
+            //             $('#loader').show();
+            //         },
+            //         dataType: "json",
+            //         cache: false,
+            //         crossDomain: false,
+            //         // return the result
+            //         success: function(result) {
 
-                        var resultHtml ='<h1>'+result["title"]+'</h1><hr/>'+
-                        '<table class="table table-dark table-bordered table-striped table-hover">'+
-                            '<tr><td>'+'User ID'+'</td><td>'+result["userId"]+'</td></tr>'+
-                            '<tr><td>'+'Post ID'+'</td><td>'+result["id"]+'</td></tr>'+
-                            '<tr><td>'+'Title'+'</td><td>'+result["title"]+'</td></tr>'+
-                            '<tr><td>'+'Body'+'</td><td>'+result["body"]+'</td></tr>'+
-                        '</table>';
-                        $('#mediumModal').modal("show");
-                        $('#mediumBody').html(resultHtml).show();
-                    },
-                    complete: function() {
-                        $('#loader').hide();
-                    },
-                    error: function(jqXHR, testStatus, error) {
-                        console.log(error);
-                        alert("Page " + href + " cannot open. Error:" + error);
-                        $('#loader').hide();
-                    },
-                    timeout: 8000
-                })
-            });
+            //             var resultHtml ='<h1>'+result["title"]+'</h1><hr/>'+
+            //             '<table class="table table-dark table-bordered table-striped table-hover">'+
+            //                 '<tr><td>'+'User ID'+'</td><td>'+result["userId"]+'</td></tr>'+
+            //                 '<tr><td>'+'Post ID'+'</td><td>'+result["id"]+'</td></tr>'+
+            //                 '<tr><td>'+'Title'+'</td><td>'+result["title"]+'</td></tr>'+
+            //                 '<tr><td>'+'Body'+'</td><td>'+result["body"]+'</td></tr>'+
+            //             '</table>';
+            //             $('#mediumModal').modal("show");
+            //             $('#mediumBody').html(resultHtml).show();
+            //         },
+            //         complete: function() {
+            //             $('#loader').hide();
+            //         },
+            //         error: function(jqXHR, testStatus, error) {
+            //             console.log(error);
+            //             alert("Page " + href + " cannot open. Error:" + error);
+            //             $('#loader').hide();
+            //         },
+            //         timeout: 8000
+            //     })
+            // });
         </script>
     @endpush
 
