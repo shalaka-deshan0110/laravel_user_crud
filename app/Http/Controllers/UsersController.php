@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Eloquent\UsersRepository;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+    protected $usersRepo;
+
+    public function __construct(UsersRepository $usersRepository)
+    {
+        $this->usersRepo = $usersRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,6 +20,10 @@ class UsersController extends Controller
      */
     public function index()
     {
+
+        $users = $this->usersRepo->all();
+
+        return view('users.index', compact('users'));
 
     }
 

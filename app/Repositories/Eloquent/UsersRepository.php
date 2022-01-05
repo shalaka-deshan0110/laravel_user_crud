@@ -28,7 +28,7 @@ class UsersRepository implements BaseRepositoryInterface
     public function all($related = null): LengthAwarePaginator
     {
         //return all users
-        return User::all()->paginate();
+        return User::paginate();
     }
 
     public function get($id, array $related = null): Model
