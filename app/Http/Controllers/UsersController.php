@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Repositories\Eloquent\UsersRepository;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created User.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -67,14 +68,15 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the User.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -86,7 +88,15 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $request->validate([
+            'name'=>'required',
+            'email' => 'required|unique:users,email,'.$id
+        ]);
+
+        $user = $this->usersRepo->update($request->all(), $id);
+
+        return redirect('/users')->with('success', 'User updated successfully!');
     }
 
     /**
