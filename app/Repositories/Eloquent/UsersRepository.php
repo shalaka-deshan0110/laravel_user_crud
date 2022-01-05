@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UsersRepository implements BaseRepositoryInterface
 {
@@ -50,7 +51,7 @@ class UsersRepository implements BaseRepositoryInterface
         $user = User::create([
             'name' => $attributes['name'],
             'email' => $attributes['email'],
-            'password' => $attributes['password']
+            'password' => isset($attributes['password'])?$attributes['password']: '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
 
         return $user->refresh();

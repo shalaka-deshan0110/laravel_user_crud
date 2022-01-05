@@ -34,7 +34,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -45,7 +45,14 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'email' => 'required|unique:users,email'
+        ]);
+
+        $user = $this->usersRepo->create($request->all());
+
+        return redirect('/users')->with('success', 'User created successfully!');
     }
 
     /**
